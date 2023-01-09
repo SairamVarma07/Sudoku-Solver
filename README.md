@@ -9,10 +9,10 @@ class SudokuSolver
                                  int row, int col,
                                  int num)
     {
-        // Row has the unique (row-clash)
+        // Check row clash
         for (int d = 0; d < board.length; d++)
         {
-             
+
             // Check if the number we are trying to
             // place is already present in
             // that row, return false;
@@ -20,11 +20,11 @@ class SudokuSolver
                 return false;
             }
         }
- 
-        // Column has the unique numbers (column-clash)
+
+        // Check column clash
         for (int r = 0; r < board.length; r++)
         {
-             
+
             // Check if the number
             // we are trying to
             // place is already present in
@@ -34,13 +34,12 @@ class SudokuSolver
                 return false;
             }
         }
- 
-        // Corresponding square has
-        // unique number (box-clash)
+
+        // Box clash
         int sqrt = (int)Math.sqrt(board.length);
         int boxRowStart = row - row % sqrt;
         int boxColStart = col - col % sqrt;
- 
+
         for (int r = boxRowStart;
              r < boxRowStart + sqrt; r++)
         {
@@ -53,13 +52,13 @@ class SudokuSolver
                 }
             }
         }
- 
-        // if there is no clash, it's safe
+
+        // if there is no clash,Enter the number
         return true;
     }
- 
+
     public static boolean solveSudoku(
-        int[][] board, int n)
+            int[][] board, int n)
     {
         int row = -1;
         int col = -1;
@@ -72,9 +71,8 @@ class SudokuSolver
                 {
                     row = i;
                     col = j;
- 
-                    // We still have some remaining
-                    // missing values in Sudoku
+
+                    // We still have some missing values
                     isEmpty = false;
                     break;
                 }
@@ -83,13 +81,13 @@ class SudokuSolver
                 break;
             }
         }
- 
-        // No empty space left
+
+
         if (isEmpty)
         {
             return true;
         }
- 
+
         // Else for each-row backtrack
         for (int num = 1; num <= n; num++)
         {
@@ -110,11 +108,11 @@ class SudokuSolver
         }
         return false;
     }
- 
+
     public static void print(
-        int[][] board, int N)
+            int[][] board, int N)
     {
-         
+
         // We got the answer, just print it
         for (int r = 0; r < N; r++)
         {
@@ -124,34 +122,33 @@ class SudokuSolver
                 System.out.print(" ");
             }
             System.out.print("\n");
- 
+
             if ((r + 1) % (int)Math.sqrt(N) == 0)
             {
                 System.out.print("");
             }
         }
     }
- 
-    // Driver Code
+
+    // Driver Code Can be changed according to the puzzle
     public static void main(String args[])
     {
- 
+
         int[][] board = new int[][] {
-            { 3, 0, 6, 5, 0, 8, 4, 0, 0 },
-            { 5, 2, 0, 0, 0, 0, 0, 0, 0 },
-            { 0, 8, 7, 0, 0, 0, 0, 3, 1 },
-            { 0, 0, 3, 0, 1, 0, 0, 8, 0 },
-            { 9, 0, 0, 8, 6, 3, 0, 0, 5 },
-            { 0, 5, 0, 0, 9, 0, 6, 0, 0 },
-            { 1, 3, 0, 0, 0, 0, 2, 5, 0 },
-            { 0, 0, 0, 0, 0, 0, 0, 7, 4 },
-            { 0, 0, 5, 2, 0, 6, 3, 0, 0 }
+                { 3, 0, 6, 5, 0, 8, 4, 0, 0 },
+                { 5, 2, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 8, 7, 0, 0, 0, 0, 3, 1 },
+                { 0, 0, 3, 0, 1, 0, 0, 8, 0 },
+                { 9, 0, 0, 8, 6, 3, 0, 0, 5 },
+                { 0, 5, 0, 0, 9, 0, 6, 0, 0 },
+                { 1, 3, 0, 0, 0, 0, 2, 5, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 7, 4 },
+                { 0, 0, 5, 2, 0, 6, 3, 0, 0 }
         };
         int N = board.length;
- 
+
         if (solveSudoku(board, N))
         {
-            // print solution
             print(board, N);
         }
         else {
